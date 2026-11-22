@@ -9,9 +9,9 @@
   "description": "Ride, payment and car-expense manager.",
   "icons": [
     {
-      "src": "assets/jmj-emblem.svg",
+      "src": "assets/jmj-emblem.jpg",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
