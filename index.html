@@ -79,6 +79,7 @@ function shareInvoiceWhatsApp(id){var v=db.invoices.find(x=>x.id===id);if(!v)ret
 function printInvoice(id){
 var v=db.invoices.find(x=>x.id===id);if(!v)return;
 var w=window.open('','_blank');if(!w){alert('Please allow pop-ups for this app, then tap Print / Save PDF again.');return;}
+var logoUrl=new URL('assets/jmj-emblem.svg',window.location.href).href;
 var rows=v.items.map(function(r,i){return '<tr><td class="num">'+(i+1)+'</td><td>'+esc(fmt(r.date))+'</td><td>'+esc(r.time)+'</td><td>'+esc(r.pickup)+' → '+esc(r.drop)+'</td><td class="money">'+money(r.amount)+'</td></tr>';}).join('');
 var html='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(v.number)+'</title><style>'+
 '@page{size:A4;margin:13mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#17202a;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
@@ -89,7 +90,7 @@ var html='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"
 '.totals{width:260px;max-width:100%;margin:20px 0 0 auto;border:1px solid #d6d9dd;border-radius:10px;overflow:hidden}.totals div{display:flex;justify-content:space-between;padding:9px 12px;border-bottom:1px solid #e0e2e5}.totals div:last-child{background:#f4d98f;font-size:17px;font-weight:bold;border:0}.footer{margin:34px 0 0;text-align:center;border-top:1px solid #d7b15c;padding-top:18px;break-inside:avoid}.thanks{font-family:Georgia,serif;font-style:italic;font-size:30px;color:#a97820}.footer small{display:block;margin-top:7px;color:#53606d;font-size:12px}'+
 '@media print{.brand,.summary,th,.totals div:last-child{-webkit-print-color-adjust:exact;print-color-adjust:exact}thead{display:table-header-group}}@media screen{body{padding:16px;max-width:900px;margin:auto}.brand{border-radius:14px}}'+
 '</style></head><body>'+
-'<header class="brand"><img src="assets/jmj-emblem.svg" alt="JMJ emblem"><div class="brandname">JMJ<span>TRAVELS</span></div></header>'+
+'<header class="brand"><img src="'+logoUrl+'" alt="JMJ emblem"><div class="brandname">JMJ<span>TRAVELS</span></div></header>'+
 '<section class="heading"><h1>INVOICE</h1><div class="invoiceNo">'+esc(v.number)+'<div class="muted">Billing period: '+esc(v.periodLabel)+'</div></div></section>'+
 '<section class="summary"><div><b>Passenger</b>'+esc(v.person)+'</div><div><b>Ride summary</b>'+v.items.length+' ride'+(v.items.length===1?'':'s')+'</div></section>'+
 '<table><thead><tr><th>#</th><th>Date</th><th>Time</th><th>Journey</th><th>Amount</th></tr></thead><tbody>'+rows+'</tbody></table>'+
