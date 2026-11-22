@@ -1,5 +1,5 @@
-const CACHE = 'jmj-ride-manager-v6';
-const ASSETS = ['./','./index.html','./manifest.webmanifest','./sw.js','./assets/jmj-emblem.jpg','./icon-192.png','./icon-512.png'];
+const CACHE = 'jmj-ride-manager-v7';
+const ASSETS = ['./','./index.html','./manifest.webmanifest','./sw.js','./assets/jmj-emblem.jpg','./icon-192.svg','./icon-512.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
