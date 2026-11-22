@@ -97,7 +97,7 @@ var html='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"
 '<section class="totals"><div><span>Total charges</span><b>'+money(v.total)+'</b></div><div><span>Received</span><b>'+money(v.received)+'</b></div><div><span>Outstanding</span><b>'+money(v.outstanding)+'</b></div></section>'+
 '<footer class="footer"><div class="thanks">Thank You!</div><small>Thank you for choosing JMJ TRAVELS</small></footer>'+
 '</body></html>';
-w.document.open();w.document.write(html);w.document.close();w.onload=function(){w.focus();w.print();};
+w.document.open();w.document.write(html);w.document.close();var logo=w.document.querySelector('.brand img');var startPrint=function(){w.focus();w.print();};if(logo.complete&&logo.naturalWidth>0){startPrint();}else{logo.onload=startPrint;logo.onerror=function(){alert('The JMJ emblem could not load. Please check your internet connection and try Print / Save PDF again.');};}
 }
 nav();render();cloudInit();
 </script><script>
