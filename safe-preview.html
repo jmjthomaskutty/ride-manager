@@ -23,6 +23,8 @@ function normalizeDate(v){
   return x;
 }
 function dateStr(){let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
+function fmt(v){let d=normalizeDate(v);if(!d)return '';let p=d.split('-');if(p.length!==3)return String(v??'');return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString('en-CA',{year:'numeric',month:'short',day:'numeric'});}
+function historyDate(v){return fmt(v);}
 const KEY='rav4_app_v1_SAFE_PREVIEW_ONLY_v1';
 let cloudClient=null,cloudUser=null,cloudTimer=null,cloudBusy=false,cloudRevision=0,cloudRetryRequested=false;
 let db=JSON.parse(localStorage.getItem(KEY)||'null')||{rides:[],expenses:[],settings:{}};
