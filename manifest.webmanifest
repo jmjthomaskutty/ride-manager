@@ -1,14 +1,14 @@
 {
-  "name": "RAV4 Ride Manager",
-  "short_name": "Ride Manager",
+  "name": "JMJ TRAVELS — Ride Manager",
+  "short_name": "JMJ TRAVELS",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#111827",
-  "description": "Ride, payment and car-expense manager.",
+  "description": "JMJ Travels ride, passenger billing, payments and car-expense manager.",
   "icons": [
-    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
