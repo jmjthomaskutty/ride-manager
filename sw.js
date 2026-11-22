@@ -1,5 +1,5 @@
-const CACHE = 'rav4-ride-manager-v3';
-const ASSETS = ['./','./index.html','./manifest.webmanifest','./sw.js','./icons/jmj-travels.svg'];
+const CACHE = 'rav4-ride-manager-v4';
+const ASSETS = ['./','./index.html','./manifest.webmanifest','./sw.js','./assets/jmj-emblem.svg'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
