@@ -10,7 +10,7 @@
   "icons": [
     {
       "src": "assets/jmj-emblem.jpg",
-      "sizes": "any",
+      "sizes": "256x256",
       "type": "image/jpeg",
       "purpose": "any maskable"
     }
