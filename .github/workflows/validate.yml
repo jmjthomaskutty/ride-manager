@@ -1,0 +1,43 @@
+name: Validate Ride Manager
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [release-v12-integration-20261122]
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check inline JavaScript syntax
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('index.html', 'utf8');
+          const scripts = [...html.matchAll(/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/gi)]
+            .map(match => match[1].trim())
+            .filter(Boolean);
+          if (!scripts.length) {
+            console.error('No inline JavaScript blocks found.');
+            process.exit(1);
+          }
+          scripts.forEach((source, index) => {
+            const file = `/tmp/ride-manager-script-${index + 1}.js`;
+            fs.writeFileSync(file, source);
+            require('child_process').execFileSync(process.execPath, ['--check', file], {stdio: 'inherit'});
+          });
+          console.log(`Syntax check passed for ${scripts.length} inline script block(s).`);
+          NODE
+      - name: Verify required release assets
+        run: |
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -f icon-192.png
+          test -f icon-512.png
+          test -f assets/jmj-emblem.jpg
