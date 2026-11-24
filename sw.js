@@ -1,4 +1,4 @@
-const CACHE = 'jmj-ride-manager-v13';
+const CACHE = 'jmj-ride-manager-v14';
 const ASSETS = ['./','./index.html','./manifest.webmanifest','./sw.js','./assets/jmj-emblem.jpg','./assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio.mp4','./assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio_Landscape.mp4','./icon-192.svg','./icon-512.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
