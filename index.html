@@ -153,75 +153,34 @@ if ('serviceWorker' in navigator) {
   const overlay = document.getElementById('jmj-intro-overlay');
   const video = document.getElementById('jmj-intro-video');
   if (!overlay || !video) return;
-  const portrait = window.matchMedia('(orientation: portrait)').matches;
-  video.src = portrait
-    ? './assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio.mp4'
-    : './assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio_Landscape.mp4';
-  video.load();
-  let closed = false;
-  let failsafe;
-  const closeIntro = () => {
-    if (closed) return;
-    closed = true;
-    if (failsafe) window.clearTimeout(failsafe);
-    overlay.classList.add('is-fading');
-    window.setTimeout(() => overlay.remove(), 750);
-  };
-  video.addEventListener('ended', closeIntro, { once: true });
-  video.addEventListener('error', closeIntro, { once: true });
-  failsafe = window.setTimeout(closeIntro, 7000);
-  video.muted = false;
-  video.volume = 1;
-  const audioStart = document.getElementById('jmj-intro-audio-start');
-  const playAttempt = video.play();
-  if (playAttempt && typeof playAttempt.catch === 'function') {
-    playAttempt.catch(() => {
-      if (closed) return;
-      audioStart.style.display = 'block';
-    });
-  }
-  audioStart.addEventListener('click', () => {
-    audioStart.style.display = 'none';
-    video.muted = false;
-    video.volume = 1;
-    const retry = video.play();
-    if (retry && typeof retry.catch === 'function') retry.catch(() => {
-  const overlay = document.getElementById('jmj-intro-overlay');
-  const video = document.getElementById('jmj-intro-video');
-  if (!overlay || !video) return;
 
-  const portrait = window.matchMedia('(orientation: portrait)').matches;
-  video.src = portrait
+  const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+  video.src = isPortrait
     ? './assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio.mp4'
     : './assets/JMJ_TRAVELS_Motion_Poster_Cinematic_Audio_Landscape.mp4';
   video.muted = false;
   video.defaultMuted = false;
   video.volume = 1;
   video.autoplay = false;
+  video.controls = true;
   video.load();
 
   let closed = false;
-  let failsafe;
   const closeIntro = () => {
     if (closed) return;
     closed = true;
-    if (failsafe) window.clearTimeout(failsafe);
     overlay.classList.add('is-fading');
     window.setTimeout(() => overlay.remove(), 750);
   };
 
   video.addEventListener('ended', closeIntro, { once: true });
-  video.addEventListener('error', closeIntro, { once: true });
-
-  // Use the browser's native media controls: the user's tap directly
-  // initiates playback with the MP4's embedded audio track.
+  video.addEventListener('error', () => {
+    console.error('JMJ intro video failed to load:', video.error);
+  }, { once: true });
   video.addEventListener('play', () => {
     video.muted = false;
     video.volume = 1;
-    if (failsafe) window.clearTimeout(failsafe);
-  }, { once: true });
-
-  failsafe = window.setTimeout(closeIntro, 20000);
+  });
 })();
 </script>
 </body></html>
